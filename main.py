@@ -16,7 +16,10 @@ def create_memo(memo:Memo):
     return 'POST 성공'
 
 @app.get("/memos")
-def read_memo():
+def read_memo(sort_by: str = None, sort_order: str = None):
+    if sort_by == "id" and sort_order == "desc":
+        sorted_memos = sorted(memos, key=lambda x: x.id, reverse=True)
+        return sorted_memos
     return memos
 
 @app.put("/memos/{memo_id}")
